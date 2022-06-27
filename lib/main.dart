@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 void main(){
   runApp(MyApp());
@@ -32,18 +33,27 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      home:scaffold(
-        body: ListView.builder(
-        itemCount: _postsJson.length,
-        itemBuilder: (context, i)(
-          final post = _postsJson[i];
-          return Text("id: ${post["id"]}\n nome: ${post["nome"]}\n indirizzo: ${post["indirizzo"]}\n numeroDiTelefono: ${post["numeroDiTelefono"]}\n imId: ${post["null"]}\n
-          ),
-        );
-        )
-    return Container();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchPosts();
   }
 
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: Scaffold(
+        body: ListView.builder(
+          itemCount: _postsJson.length,
+            itemBuilder: (context, i){
+            final post = _postsJson[i];
+            return Text("id: ${post["id"]}\n nome: ${post["nome"]}\n indirizzo: ${post["indirizzo"]}\n numeroDiTelefono: ${post["numeroDiTelefono"]}\n imId: ${post["imId"]}\n\n");
+            }
+        ),
+      ),
+    );
+  }
 }
+
+
+
