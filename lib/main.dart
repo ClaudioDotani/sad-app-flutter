@@ -3,35 +3,32 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:sad_flutter_app/homepage.dart';
+import 'package:sad_flutter_app/GetCampi.dart';
 
-void main(){
-  runApp(MyApp());
-}
+void main() => runApp(MaterialApp(home: HomePage()));
 
-class MyApp extends StatefulWidget{
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  _HomePageState createState() => _HomePageState();
 }
 
-
-
-class _MyAppState extends State<MyApp> {
-
+class _HomePageState extends State<HomePage> {
   final url = "https://sad-spring.azurewebsites.net/getCentriSportivi";
 
   var _postsJson = [];
 
-  void fetchPosts() async{
-
+  void fetchPosts() async {
     try {
       final response = await get(Uri.parse(url));
       final jsonData = jsonDecode(response.body) as List;
 
-      setState((){
+      setState(() {
         _postsJson = jsonData;
       });
     } catch (err) {
-
+      print("errore in set state");
     }
   }
 
@@ -43,40 +40,41 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: ListView.builder(
-          itemCount: _postsJson.length,
-            itemBuilder: (context, i){
-            final post = _postsJson[i];
-            return Text(
-                "id: ${post["id"]}\n "
-                "nome: ${post["nome"]}\n "
-                "indirizzo: ${post["indirizzo"]}\n "
-                "numeroDiTelefono: ${post["numeroDiTelefono"]}\n "
-                "imId: ${post["imId"]}\n\n"
-            );
+        home: Scaffold(
+      backgroundColor: Colors.orange.shade200,
+      body: ListView.builder(
+        itemCount: _postsJson.length,
+        itemBuilder: (context, i) {
+          final post = _postsJson[i];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Campi()),
+              );
             },
-        ),
-        backgroundColor: Colors.deepOrange.shade300,
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.deepOrange.shade400,
-          animationDuration: Duration(milliseconds: 300),
-          onTap: (index){},
-          items: [
-            Icon(
-              Icons.home,
-              color: Colors.redAccent,
+            child: Container(
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/logo.jpeg')),
+              ),
+              child: Text(post["nome"]),
+              alignment: Alignment.bottomCenter,
             ),
-            Icon(Icons.search),
-          ],
-        ),
+          );
+        },
       ),
-    );
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.orange.shade200,
+        items: [
+          Icon(Icons.home),
+          Icon(Icons.search),
+        ],
+      ),
+    ));
   }
 }
-
-
-
-

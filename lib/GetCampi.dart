@@ -1,35 +1,35 @@
 import 'dart:convert';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sad_flutter_app/main.dart';
 
-void main(){
-  runApp(MyApp());
-}
+/*void main(){
+  runApp(Campi());
+}*/
 
-class MyApp extends StatefulWidget{
+class Campi extends StatefulWidget {
+  const Campi({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  _CampiState createState() => _CampiState();
 }
 
-class _MyAppState extends State<MyApp> {
-
+class _CampiState extends State<Campi> {
   final url = "https://sad-spring.azurewebsites.net/campicentro/1";
 
   var _postsJson = [];
 
-  void fetchPosts() async{
-
+  void fetchPosts() async {
     try {
       final response = await get(Uri.parse(url));
       final jsonData = jsonDecode(response.body) as List;
 
-      setState((){
+      setState(() {
         _postsJson = jsonData;
       });
-    } catch (err) {
-
-    }
+    } catch (err) {}
   }
 
   @override
@@ -40,32 +40,31 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: ListView.builder(
-            itemCount: _postsJson.length,
-            itemBuilder: (context, i){
-              final post = _postsJson[i];
-              return Text(
-                  "id: ${post["id"]}\n "
-                      "nome: ${post["nome"]}\n "
-                      "descrizione: ${post["descrizione"]}\n "
-                      "imgIds: ${post["imgIds"]}\n "
-                      "prenotabile: ${post["prenotabile"]}\n "
-                      "costoOrario: ${post["costoOrario"]}\n "
-                      "timestampApertura: ${post["timestampApertura"]}\n "
-                      "timestampChiusura: ${post["timestampChiusura"]}\n\n"
-              );
-            }
-        ),
+        home: Scaffold(
+      backgroundColor: Colors.orange.shade200,
+      body: ListView.builder(
+        itemCount: _postsJson.length,
+        itemBuilder: (context, i) {
+          final post = _postsJson[i];
+          return GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/logo.jpeg')),
+              ),
+              child: Text(post["nome"]),
+              alignment: Alignment.bottomCenter,
+            ),
+          );
+        },
       ),
-    );
+    ));
   }
-
-
-
 }
-
-
-
