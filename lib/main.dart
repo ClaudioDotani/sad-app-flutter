@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -11,6 +11,8 @@ class MyApp extends StatefulWidget{
   @override
   _MyAppState createState() => _MyAppState();
 }
+
+
 
 class _MyAppState extends State<MyApp> {
 
@@ -47,13 +49,42 @@ class _MyAppState extends State<MyApp> {
           itemCount: _postsJson.length,
             itemBuilder: (context, i){
             final post = _postsJson[i];
-            return Text("id: ${post["id"]}\n nome: ${post["nome"]}\n indirizzo: ${post["indirizzo"]}\n numeroDiTelefono: ${post["numeroDiTelefono"]}\n imId: ${post["imId"]}\n\n");
-            }
+            return Text(
+                "id: ${post["id"]}\n "
+                "nome: ${post["nome"]}\n "
+                "indirizzo: ${post["indirizzo"]}\n "
+                "numeroDiTelefono: ${post["numeroDiTelefono"]}\n "
+                "imId: ${post["imId"]}\n\n"
+            );
+            },
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Colors.deepPurple,
+          items: [
+            Icon(Icons.home),
+            Icon(Icons.search),
+          ],
         ),
       ),
     );
   }
+
+
+  Widget barra(BuildContext context){
+    return Scaffold(
+      //backgroundColor: Colors.deepPurple,
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.deepPurple,
+        items: [
+          Icon(Icons.home),
+          Icon(Icons.search),
+        ],
+      ),
+    );
+
+  }
 }
+
 
 
 

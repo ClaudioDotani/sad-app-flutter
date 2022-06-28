@@ -47,12 +47,24 @@ class _MyAppState extends State<MyApp> {
             itemCount: _postsJson.length,
             itemBuilder: (context, i){
               final post = _postsJson[i];
-              return Text("id: ${post["id"]}\n nome: ${post["nome"]}\n descrizione: ${post["descrizione"]}\n imgIds: ${post["imgIds"]}\n prenotabile: ${post["prenotabile"]}\n costoOrario: ${post["costoOrario"]}\n timestampApertura: ${post["timestampApertura"]}\n timestampChiusura: ${post["timestampChiusura"]}\n\n");
+              return Text(
+                  "id: ${post["id"]}\n "
+                      "nome: ${post["nome"]}\n "
+                      "descrizione: ${post["descrizione"]}\n "
+                      "imgIds: ${post["imgIds"]}\n "
+                      "prenotabile: ${post["prenotabile"]}\n "
+                      "costoOrario: ${post["costoOrario"]}\n "
+                      "timestampApertura: ${post["timestampApertura"]}\n "
+                      "timestampChiusura: ${post["timestampChiusura"]}\n\n"
+              );
             }
         ),
       ),
     );
   }
+
+
+
 }
 
 
