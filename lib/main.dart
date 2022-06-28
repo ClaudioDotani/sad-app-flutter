@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sad_flutter_app/homepage.dart';
 
 void main(){
   runApp(MyApp());
@@ -58,30 +59,21 @@ class _MyAppState extends State<MyApp> {
             );
             },
         ),
+        backgroundColor: Colors.deepOrange.shade300,
         bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepOrange.shade400,
+          animationDuration: Duration(milliseconds: 300),
+          onTap: (index){},
           items: [
-            Icon(Icons.home),
+            Icon(
+              Icons.home,
+              color: Colors.redAccent,
+            ),
             Icon(Icons.search),
           ],
         ),
       ),
     );
-  }
-
-
-  Widget barra(BuildContext context){
-    return Scaffold(
-      //backgroundColor: Colors.deepPurple,
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.deepPurple,
-        items: [
-          Icon(Icons.home),
-          Icon(Icons.search),
-        ],
-      ),
-    );
-
   }
 }
 
