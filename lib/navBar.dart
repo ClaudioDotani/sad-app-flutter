@@ -16,12 +16,19 @@ class _Nav_BarState extends State<Nav_Bar> {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
+          backgroundColor: Colors.deepOrange,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.sports_football,
+                color: Colors.brown,
+              ),
             ),
           ],
         ),
