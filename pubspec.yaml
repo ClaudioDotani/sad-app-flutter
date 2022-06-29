@@ -36,7 +36,8 @@ dependencies:
   http: ^0.13.4
   curved_navigation_bar: ^1.0.3
   persistent_bottom_nav_bar: any
-
+  get: ^4.6.5
+  screens: ^2.5.0
 
 
 
