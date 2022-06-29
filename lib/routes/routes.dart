@@ -1,3 +1,4 @@
+/*
 import 'package:get/get.dart';
 import 'package:sad_flutter_app/navBar.dart';
 import 'package:sad_flutter_app/main.dart';
@@ -18,4 +19,4 @@ class RoutesClass{
     GetPage(page: ()=>const Campi(), name: campi),
     GetPage(page: ()=>const Nav_Bar(), name: NavBar),
   ];
-}
+}*/

@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:sad_flutter_app/Centri_Sportivi.dart';
 import 'package:sad_flutter_app/GetCampi.dart';
 import 'package:sad_flutter_app/navBar.dart';
 import 'package:sad_flutter_app/routes/routes.dart';
 
-//void main() => runApp(MaterialApp(home: HomePage()));
+void main() => runApp(MaterialApp(home: HomePage()));
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,12 +44,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Nav_Bar(),
-        '/Campi': (context) => const Campi(),
-      },
+    return CupertinoApp(
+      debugShowCheckedModeBanner: false,
+      title: "Centri Sportivi",
+      home: Nav_Bar(),
     );
   }
 }

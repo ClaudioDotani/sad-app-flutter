@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:sad_flutter_app/GetCampi.dart';
 import 'package:sad_flutter_app/routes/routes.dart';
@@ -49,7 +49,7 @@ class _Centri_SportiviState extends State<Centri_Sportivi> {
             final post = _postsJson[i];
             return GestureDetector(
               onTap: () {
-               Navigator.pushNamed(context, '/Campi');
+               Navigator.push(context, CupertinoPageRoute(builder: (context) => Campi()));
               },
               child: Container(
                 height: 250,
@@ -64,23 +64,6 @@ class _Centri_SportiviState extends State<Centri_Sportivi> {
             );
           },
         ),
-        /**bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.orange.shade200,
-          items: const [
-            Icon(
-              Icons.home,
-              color: Colors.deepOrange,
-            ),
-            Icon(
-              Icons.sports_football,
-              color: Colors.deepOrange,
-            ),
-            Icon(
-              Icons.search,
-              color: Colors.deepOrange,
-            ),
-          ],
-        ),*/
       );
   }
 }
