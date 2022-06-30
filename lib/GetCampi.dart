@@ -38,7 +38,7 @@ class _CampiState extends State<Campi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange.shade200,
+      backgroundColor: Colors.blue.shade400,
       body: ListView.builder(
         itemCount: _postsJson.length,
         itemBuilder: (context, i) {

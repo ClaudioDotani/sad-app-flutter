@@ -1,7 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sad_flutter_app/AppBar.dart';
 import 'package:sad_flutter_app/Centri_Sportivi.dart';
+import 'package:sad_flutter_app/GetCampi.dart';
 import 'package:sad_flutter_app/main.dart';
 
 class Nav_Bar extends StatefulWidget {
@@ -15,18 +17,19 @@ class _Nav_BarState extends State<Nav_Bar> {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
+      backgroundColor: Colors.blue.shade400,
         tabBar: CupertinoTabBar(
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: Colors.white,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
-                color: Colors.green,
+                color: Colors.blue,
               ),
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.sports_football,
+                Icons.sports_soccer,
                 color: Colors.brown,
               ),
             ),
@@ -36,19 +39,19 @@ class _Nav_BarState extends State<Nav_Bar> {
           switch (index) {
             case 0:
               return CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
+                return const CupertinoPageScaffold(
                   child: Centri_Sportivi(),
                 );
               });
             case 1:
               return CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
+                return const CupertinoPageScaffold(
                   child: Page2(),
                 );
               });
             default:
               return CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
+                return const CupertinoPageScaffold(
                   child: Page2(),
                 );
               });
@@ -57,11 +60,25 @@ class _Nav_BarState extends State<Nav_Bar> {
   }
 }
 
+class Page1 extends StatelessWidget{
+  const Page1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return const SafeArea(
+      child: Nav_Bar(),
+
+    );
+  }
+}
+
 class Page2 extends StatelessWidget {
+  const Page2({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(child: Text("Hello World!")),
+    return const SafeArea(
+      child: Campi(),
     );
   }
 }
