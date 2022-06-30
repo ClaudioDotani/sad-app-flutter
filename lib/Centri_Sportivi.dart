@@ -3,7 +3,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:sad_flutter_app/AppBar.dart';
 import 'package:sad_flutter_app/GetCampi.dart';
 
 
