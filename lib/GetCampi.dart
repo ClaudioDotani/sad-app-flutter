@@ -37,6 +37,8 @@ class _CampiState extends State<Campi> {
     fetchPosts();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

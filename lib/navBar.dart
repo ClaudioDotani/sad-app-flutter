@@ -16,7 +16,7 @@ class _Nav_BarState extends State<Nav_Bar> {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-      backgroundColor: Colors.blue.shade400,
+        backgroundColor: Colors.blue.shade400,
         tabBar: CupertinoTabBar(
           backgroundColor: Colors.white,
           items: const <BottomNavigationBarItem>[
@@ -41,7 +41,6 @@ class _Nav_BarState extends State<Nav_Bar> {
           ],
         ),
         tabBuilder: (context, index) {
-        print(context);
           switch (index) {
             case 0:
               return CupertinoTabView(builder: (context) {
@@ -72,14 +71,13 @@ class _Nav_BarState extends State<Nav_Bar> {
   }
 }
 
-class Page1 extends StatelessWidget{
+class Page1 extends StatelessWidget {
   const Page1({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return const SafeArea(
       child: Nav_Bar(),
-
     );
   }
 }
@@ -101,10 +99,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: MaterialApp(
-        home: MyApp()
-      ),
+      child: MaterialApp(home: MyApp()),
     );
   }
 }
-

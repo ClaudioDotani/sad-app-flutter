@@ -82,6 +82,38 @@ class OrariViewState extends State<OrariView> {
       });
     }
   }
+/*
+  {
+  "durataPrenotazione": 120,
+  "utenteNonRegistrato": "",
+  "dataPartita": "1656774000000",
+  "campoDaGioco": 1,
+  "utente": 1,
+  "privata": true
+  }
+*/
+  void prenota() async {
+
+    try {
+      String url = url_base + "insertPrenotazione" //Serve a passare l'id da una view all' altra
+      final response = await get(Uri.parse(url));
+      final jsonData = jsonDecode(response.body) as List;
+
+      setState(() {
+        _postsJson = jsonData;
+      });
+    } catch (err) {}
+  }
+
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Prenotazione Effettuata'),
+        action: SnackBarAction(label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
 
 
   @override
@@ -133,7 +165,7 @@ class OrariViewState extends State<OrariView> {
                       final post = _postsJson[i];
                       return GestureDetector(
                         onTap: () {
-                          print("Pressed");
+                          _showToast(context);
                         },
                         child: Container(
                           height: 50,
@@ -155,5 +187,7 @@ class OrariViewState extends State<OrariView> {
     );
   }
 }
+
+
 
 
