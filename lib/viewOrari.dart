@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sad_flutter_app/Prenotazione.dart';
 
 //void main() => runApp(const OrariView());
 
@@ -46,6 +47,8 @@ class OrariViewState extends State<OrariView> {
 
 
   void fetchPosts() async {
+
+
     try {
       print(widget.idCampo);
       String id = widget.idCampo;
@@ -92,13 +95,23 @@ class OrariViewState extends State<OrariView> {
   "privata": true
   }
 */
-  void prenota() async {
+  void prenota(BuildContext context) async {
+    var pren = {
+      "durataPrenotazione": 60,
+      "utenteNonRegistrato": "utente",
+      "dataPartita": Giorno.millisecond.toString(),
+      "campoDaGioco": 1,
+      "utente": 1,
+      "privata": true
+    };
 
     try {
-      String url = url_base + "insertPrenotazione" //Serve a passare l'id da una view all' altra
-      final response = await get(Uri.parse(url));
+      String url = url_base + "insertPrenotazione" ;//Serve a passare l'id da una view all' altra
+      final response = await post(Uri.parse(url), body: pren.toString());
+      print(response.toString());
+      print(pren.toString());
+      _showToast(context);
       final jsonData = jsonDecode(response.body) as List;
-
       setState(() {
         _postsJson = jsonData;
       });
@@ -165,7 +178,7 @@ class OrariViewState extends State<OrariView> {
                       final post = _postsJson[i];
                       return GestureDetector(
                         onTap: () {
-                          _showToast(context);
+                          prenota(context);
                         },
                         child: Container(
                           height: 50,
