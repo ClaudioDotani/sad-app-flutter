@@ -41,6 +41,7 @@ class _Nav_BarState extends State<Nav_Bar> {
           ],
         ),
         tabBuilder: (context, index) {
+        print(context);
           switch (index) {
             case 0:
               return CupertinoTabView(builder: (context) {

@@ -24,7 +24,7 @@ import 'package:http/http.dart';
 
 // Create a Form widget.
 class OrariView extends StatefulWidget {
-  const OrariView({super.key,required this.idCampo});
+  const OrariView({super.key, required this.idCampo});
 
   final String idCampo;
 
@@ -43,7 +43,6 @@ class OrariViewState extends State<OrariView> {
   final _textControllerGiorno = TextEditingController();
   DateTime Giorno = new DateTime.now();
   var _postsJson = [];
-
 
 
   void fetchPosts() async {
@@ -69,8 +68,6 @@ class OrariViewState extends State<OrariView> {
   }
 
 
-
-
   Future<void> _selectDate(BuildContext context) async {
     print("Eccomi");
     final DateTime? picked = await showDatePicker(
@@ -81,37 +78,53 @@ class OrariViewState extends State<OrariView> {
     if (picked != null && picked != Giorno) {
       setState(() {
         Giorno = picked;
-        _textControllerGiorno.text=Giorno.toString();
+        _textControllerGiorno.text = Giorno.toString();
       });
     }
   }
 
 
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return SafeArea(
         child: MaterialApp(
           home: Scaffold(
               backgroundColor: Colors.blue.shade400,
-              body: ListView(
-                physics: NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(8),
+              body: Stack(
                 children: <Widget>[
-                  TextFormField(
-                    controller: _textControllerGiorno,
-                    onTap:  () => _selectDate(context),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
-                        return 'Inserisci una Data';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                        border: UnderlineInputBorder(), hintText: 'Inserisci Giorno'
-                    ),
-
-                  ),
+                 Container(
+                   child:  Row(
+                     children: [
+                       GestureDetector(
+                         onTap: () {
+                           print("on prev");
+                         },
+                         child: Container(
+                           height: 20,
+                           width: 100,
+                           decoration: BoxDecoration(
+                               color: Colors.orange
+                           ),
+                           child: Text("Precedente"),
+                         ),
+                       ),
+                       Text("${Giorno.day} - ${Giorno.month} - ${Giorno.year}"),
+                       GestureDetector(
+                         onTap: () {
+                           print("on next");
+                         },
+                         child: Container(
+                           height: 20,
+                           width: 100,
+                           decoration: BoxDecoration(
+                               color: Colors.orange
+                           ),
+                           child: Text("Successivo"),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -122,7 +135,16 @@ class OrariViewState extends State<OrariView> {
                         onTap: () {
                           print("Pressed");
                         },
-                        child: Text(post.toString()),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(post.toString()),
+                        ),
                       );
                     },
                   ),
