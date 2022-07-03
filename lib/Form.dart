@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+//void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,17 +11,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const appTitle = 'Consulta gli orari disponibili';
 
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-          centerTitle: true,
-        ),
-        body: const MyCustomForm(),
-      ),
-    );
+    return   const Scaffold(
+        body: MyCustomForm(),
+      );
   }
+
 }
 
 // Create a Form widget.
@@ -39,32 +33,40 @@ class MyCustomForm extends StatefulWidget {
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final _textController = TextEditingController();
+  final _textControllerCentro = TextEditingController();
+  final _textControllerCampo = TextEditingController();
+  final _textControllerGiorno = TextEditingController();
 
-  String Centro = '';
-  String Campo = '';
-  String Giorno = '';
+  String Centro = "" ;
+  late String Campo;
+  DateTime Giorno = new DateTime.now();
+
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: Giorno,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != Giorno) {
+      setState(() {
+        Giorno = picked;
+        _textControllerGiorno.text=Giorno.toString();
+      });
+    }
+  }
+
+
 
   @override
-  Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
+  Widget build(BuildContext context){
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Visione del Testo (Test Per vedere se funziona)
-          Expanded(
-            child: Container(
-              child: Center(
-                child: Text(Campo, style: TextStyle(fontSize: 35)),
-              ),
-            ),
-          ),
-
-          //Input Testo
           TextFormField(
-            controller: _textController,
+            controller: _textControllerCentro,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Inserisci un centro';
@@ -74,7 +76,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             decoration: InputDecoration(
                 suffixIcon: IconButton(
                     onPressed: () {
-                      _textController.clear();
+                      _textControllerCentro.clear();
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
@@ -82,35 +84,43 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
           //A questo punto per far funzionare le cose, dovrei fare un bottone per ogni campo, e chiamarmi un setstate in ogni bottone, ma così fa cagare.
           TextFormField(
-            controller: _textController,
+            controller: _textControllerCampo,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Inserisci un campo';
+                return 'Inserisci un Campo';
               }
               return null;
             },
-            decoration: const InputDecoration(
-                border: UnderlineInputBorder(), hintText: 'Campo'),
+            decoration:  InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: () {
+                      _textControllerCampo.clear();
+                    },
+                    icon: Icon(Icons.clear)),
+                border: UnderlineInputBorder(), hintText: 'Campo'
+            ),
           ),
           TextFormField(
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Inserisci un Giorno';
+            controller: _textControllerGiorno,
+            onTap:  () => _selectDate(context),
+            validator: (value){
+              if(value == null || value.isEmpty){
+                return 'Inserisci una Data';
               }
               return null;
             },
             decoration: const InputDecoration(
-                border: UnderlineInputBorder(), hintText: 'Giorno'),
+              border: UnderlineInputBorder(), hintText: 'Inserisci Giorno'
+            ),
+
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
-                  //SBAGLIATO!!! con un pulsante voglio prendere tuti i dati del form, in questo modo mi viene preso solo Centro
-                  Centro = _textController.text;
-                  Campo = _textController.text;
-                  Giorno = _textController.text;
+                  Centro = _textControllerCentro.text;
+                  Campo = _textControllerCampo.text;
                 });
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
@@ -128,4 +138,13 @@ class MyCustomFormState extends State<MyCustomForm> {
       ),
     );
   }
+
+  void onDateChangeCallback(DateTime data){
+    print(data);
+  }
+
+  String url_base = "https://sad-spring.azurewebsites.net";
+  String slash = "/";
+
+
 }

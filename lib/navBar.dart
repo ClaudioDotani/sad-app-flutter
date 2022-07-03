@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sad_flutter_app/Centri_Sportivi.dart';
+import 'package:sad_flutter_app/Form.dart';
 import 'package:sad_flutter_app/GetCampi.dart';
 import 'package:sad_flutter_app/main.dart';
 
@@ -31,6 +32,12 @@ class _Nav_BarState extends State<Nav_Bar> {
                 color: Colors.brown,
               ),
             ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: Colors.blue,
+              ),
+            ),
           ],
         ),
         tabBuilder: (context, index) {
@@ -44,13 +51,19 @@ class _Nav_BarState extends State<Nav_Bar> {
             case 1:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
-                  child: Page2(),
+                  child: Page3(),
+                );
+              });
+            case 2:
+              return CupertinoTabView(builder: (context) {
+                return const CupertinoPageScaffold(
+                  child: Page3(),
                 );
               });
             default:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
-                  child: Page2(),
+                  child: Page3(),
                 );
               });
           }
@@ -70,13 +83,27 @@ class Page1 extends StatelessWidget{
   }
 }
 
-class Page2 extends StatelessWidget {
+/*class Page2 extends StatelessWidget { //Ci mettiamo il form
   const Page2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Campi(),
+        child: Campi(),
+    );
+  }
+}*/
+
+class Page3 extends StatelessWidget {
+  const Page3({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SafeArea(
+      child: MaterialApp(
+        home: MyApp()
+      ),
     );
   }
 }
+

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -10,8 +9,10 @@ import 'package:sad_flutter_app/GetCampi.dart';
 class Centri_Sportivi extends StatefulWidget {
   const Centri_Sportivi({super.key});
 
+
   @override
   _Centri_SportiviState createState() => _Centri_SportiviState();
+
 }
 
 class _Centri_SportiviState extends State<Centri_Sportivi> {
@@ -49,8 +50,9 @@ class _Centri_SportiviState extends State<Centri_Sportivi> {
             final post = _postsJson[i];
             return GestureDetector(
               onTap: () {
-               Navigator.push(context, CupertinoPageRoute(builder: (context) => Campi()));
-              },
+                print(_postsJson[i]["id"]);
+               Navigator.push(context, CupertinoPageRoute(builder: (context) => Campi(idCentro: _postsJson[i]["id"])));
+               },
               child: Container(
                 height: 250,
                 decoration: BoxDecoration(
