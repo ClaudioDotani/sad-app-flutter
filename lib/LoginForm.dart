@@ -10,13 +10,20 @@ class MyLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Consulta gli orari disponibili';
+    //const appTitle = 'Consulta gli orari disponibili';
 
-    return   const Scaffold(
-      body: MyLoginForm(),
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(25.0),
+            child: AppBar(
+              centerTitle: true,
+              title: Text('Login'),
+            ),
+          ),
+          body: MyLoginForm(),
     );
   }
-
 }
 
 // Create a Form widget.

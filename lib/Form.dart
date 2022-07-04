@@ -11,7 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const appTitle = 'Consulta gli orari disponibili';
 
-    return   const Scaffold(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Prenotaznioe Manuale'),
+      ),
         body: MyCustomForm(),
       );
   }
