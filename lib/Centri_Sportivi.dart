@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:sad_flutter_app/GetCampi.dart';
+import 'package:sad_flutter_app/Campi.dart';
 
 
 

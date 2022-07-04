@@ -1,28 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:sad_flutter_app/Prenotazione.dart';
+
 
 //void main() => runApp(const OrariView());
-
-/*class Orari extends StatefulWidget {
-  const Orari({super.key});
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-        home:  Scaffold(
-          body: OrariView(),
-        ),
-    );
-  }
-}*/
 
 // Create a Form widget.
 class OrariView extends StatefulWidget {
@@ -85,17 +66,6 @@ class OrariViewState extends State<OrariView> {
       }
     });
   }
-
-/*
-  {
-  "durataPrenotazione": 120,
-  "utenteNonRegistrato": "",
-  "dataPartita": "1656774000000",
-  "campoDaGioco": 1,
-  "utente": 1,
-  "privata": true
-  }
-*/
 
   void prenota(BuildContext context, int ora) async {
     DateTime dataPartita = new DateTime(
