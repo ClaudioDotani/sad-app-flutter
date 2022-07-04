@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sad_flutter_app/Centri_Sportivi.dart';
 import 'package:sad_flutter_app/Form.dart';
-import 'package:sad_flutter_app/GetCampi.dart';
+import 'package:sad_flutter_app/Campi.dart';
 import 'package:sad_flutter_app/LoginForm.dart';
 import 'package:sad_flutter_app/main.dart';
 

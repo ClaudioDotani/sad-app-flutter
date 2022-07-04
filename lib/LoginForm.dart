@@ -17,8 +17,12 @@ class MyLogin extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(25.0),
             child: AppBar(
+              elevation: 3,
               centerTitle: true,
-              title: Text('Login'),
+              title: const Text(
+                'Login',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+              ),
             ),
           ),
           body: MyLoginForm(),
