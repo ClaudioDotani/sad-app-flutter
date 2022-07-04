@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sad_flutter_app/Centri_Sportivi.dart';
 import 'package:sad_flutter_app/Form.dart';
 import 'package:sad_flutter_app/GetCampi.dart';
+import 'package:sad_flutter_app/LoginForm.dart';
 import 'package:sad_flutter_app/main.dart';
 
 class Nav_Bar extends StatefulWidget {
@@ -22,19 +23,19 @@ class _Nav_BarState extends State<Nav_Bar> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.sports_soccer,
                 color: Colors.blue,
               ),
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.sports_soccer,
-                color: Colors.brown,
+                Icons.search,
+                color: Colors.blue,
               ),
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.search,
+                Icons.person,
                 color: Colors.blue,
               ),
             ),
@@ -57,13 +58,13 @@ class _Nav_BarState extends State<Nav_Bar> {
             case 2:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
-                  child: Page3(),
+                  child: Page4(),
                 );
               });
             default:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
-                  child: Page3(),
+                  child: Page4(),
                 );
               });
           }
@@ -100,6 +101,17 @@ class Page3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: MaterialApp(home: MyApp()),
+    );
+  }
+}
+
+class Page4 extends StatelessWidget {
+  const Page4({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SafeArea(
+      child: MaterialApp(home: MyLogin()),
     );
   }
 }

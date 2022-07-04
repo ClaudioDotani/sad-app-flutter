@@ -53,7 +53,7 @@ class OrariViewState extends State<OrariView> {
           "disponibilitacampo/" +
           id +
           "/" +
-          Giorno.millisecond.toString();
+          Giorno.millisecondsSinceEpoch.toString();
       final response = await get(Uri.parse(url));
       print(response);
       final jsonData = jsonDecode(response.body) as List;
@@ -83,10 +83,8 @@ class OrariViewState extends State<OrariView> {
           Giorno = selectedDate;
         });
       }
-    }
-    );
+    });
   }
-
 
 /*
   {
@@ -101,14 +99,7 @@ class OrariViewState extends State<OrariView> {
 
   void prenota(BuildContext context, int ora) async {
     DateTime dataPartita = new DateTime(
-        Giorno.year,
-        Giorno.month,
-        Giorno.day,
-        ora + 2,
-        0,
-        0,
-        0,
-        0);
+        Giorno.year, Giorno.month, Giorno.day, ora + 2, 0, 0, 0, 0);
 
     Map pren = {
       "durataPrenotazione": 60,
@@ -164,7 +155,6 @@ class OrariViewState extends State<OrariView> {
             backgroundColor: Colors.blue.shade400,
             body: Stack(
               children: <Widget>[
-
                 ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -173,7 +163,10 @@ class OrariViewState extends State<OrariView> {
                     final post = _postsJson[i];
                     return GestureDetector(
                       onTap: () {
+                        _postsJson.remove(post);
                         prenota(context, post);
+                        setState(() {});
+                        fetchPosts();
                       },
                       child: Container(
                         height: 50,
@@ -187,34 +180,34 @@ class OrariViewState extends State<OrariView> {
                     );
                   },
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   FloatingActionButton(
-                     onPressed: (){
-                       Giorno = new DateTime(Giorno.year, Giorno.month, Giorno.day-1);
-                       setState(() {});
-                       fetchPosts();
-                       },
-                     child: const Icon(Icons.arrow_back),
-                   ),
-
-
-                   ElevatedButton(
-                       onPressed: (){},
-                       child: Text("${Giorno.day} - ${Giorno.month} - ${Giorno.year}")
-                   ),
-
-                   FloatingActionButton(
-                     onPressed: (){
-                       Giorno = new DateTime(Giorno.year, Giorno.month, Giorno.day+1);
-                       setState(() {});
-                       fetchPosts();
-                     },
-                     child: const Icon(Icons.arrow_forward),
-                   ),
-                 ],
+                  children: [
+                    FloatingActionButton(
+                      heroTag: "btnPrev",
+                      onPressed: () {
+                        Giorno = new DateTime(
+                            Giorno.year, Giorno.month, Giorno.day - 1);
+                        setState(() {});
+                        fetchPosts();
+                      },
+                      child: const Icon(Icons.arrow_back),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                            "${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
+                    FloatingActionButton(
+                      heroTag: "btnNext",
+                      onPressed: () {
+                        Giorno = new DateTime(
+                            Giorno.year, Giorno.month, Giorno.day + 1);
+                        setState(() {});
+                        fetchPosts();
+                      },
+                      child: const Icon(Icons.arrow_forward),
+                    ),
+                  ],
                 )
               ],
             )),
