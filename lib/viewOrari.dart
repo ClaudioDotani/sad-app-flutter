@@ -39,7 +39,7 @@ class OrariView extends StatefulWidget {
 // This class holds data related to the form.
 class OrariViewState extends State<OrariView> {
 
-  final url_base = "https://sad-spring.azurewebsites.net/disponibilitacampo/";
+  final url_base = "https://sad-spring.azurewebsites.net/";
 
   final _textControllerGiorno = TextEditingController();
   DateTime Giorno = new DateTime.now();
@@ -52,7 +52,7 @@ class OrariViewState extends State<OrariView> {
     try {
       print(widget.idCampo);
       String id = widget.idCampo;
-      final url = url_base + id + "/" + Giorno.millisecond.toString();
+      final url = url_base + "disponibilitacampo/" + id + "/" + Giorno.millisecond.toString();
       final response = await get(Uri.parse(url));
       print(response);
       final jsonData = jsonDecode(response.body) as List;
@@ -95,27 +95,40 @@ class OrariViewState extends State<OrariView> {
   "privata": true
   }
 */
-  void prenota(BuildContext context) async {
-    var pren = {
+
+
+  void prenota(BuildContext context, int ora) async {
+    DateTime dataPartita = new DateTime(Giorno.year,Giorno.month, Giorno.day, ora + 2 , 0, 0, 0, 0);
+
+    Map pren = {
       "durataPrenotazione": 60,
       "utenteNonRegistrato": "utente",
-      "dataPartita": Giorno.millisecond.toString(),
-      "campoDaGioco": 1,
+      "dataPartita": dataPartita.millisecondsSinceEpoch.toString(),
+      "campoDaGioco": int.parse(widget.idCampo),
       "utente": 1,
       "privata": true
     };
-
+    String bPren= json.encode(pren);
+    print(bPren);
     try {
       String url = url_base + "insertPrenotazione" ;//Serve a passare l'id da una view all' altra
-      final response = await post(Uri.parse(url), body: pren.toString());
-      print(response.toString());
-      print(pren.toString());
+      final response = await post(Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+        body: bPren,
+      );
+      print(response.statusCode);
+      var body = json.decode(response.body);
+      print(body.toString());
       _showToast(context);
       final jsonData = jsonDecode(response.body) as List;
       setState(() {
         _postsJson = jsonData;
       });
-    } catch (err) {}
+    } catch (err) {
+      print(err);
+    }
   }
 
   void _showToast(BuildContext context) {
@@ -178,7 +191,7 @@ class OrariViewState extends State<OrariView> {
                       final post = _postsJson[i];
                       return GestureDetector(
                         onTap: () {
-                          prenota(context);
+                          prenota(context, post);
                         },
                         child: Container(
                           height: 50,
