@@ -8,7 +8,6 @@ import 'package:json_annotation/json_annotation.dart';
 /// JSON serialization logic to be generated.
 ///
 
-part 'prenotazione.g.dart';
 
 @JsonSerializable()
 class Prenotazione {

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 //void main() => runApp(const OrariView());
@@ -37,13 +38,11 @@ class OrariView extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class OrariViewState extends State<OrariView> {
-
   final url_base = "https://sad-spring.azurewebsites.net/disponibilitacampo/";
 
   final _textControllerGiorno = TextEditingController();
   DateTime Giorno = new DateTime.now();
   var _postsJson = [];
-
 
   void fetchPosts() async {
     try {
@@ -67,7 +66,6 @@ class OrariViewState extends State<OrariView> {
     fetchPosts();
   }
 
-
   Future<void> _selectDate(BuildContext context) async {
     print("Eccomi");
     final DateTime? picked = await showDatePicker(
@@ -82,6 +80,7 @@ class OrariViewState extends State<OrariView> {
       });
     }
   }
+
 /*
   {
   "durataPrenotazione": 120,
@@ -93,9 +92,9 @@ class OrariViewState extends State<OrariView> {
   }
 */
   void prenota() async {
-
     try {
-      String url = url_base + "insertPrenotazione" //Serve a passare l'id da una view all' altra
+      String url = url_base +
+          "insertPrenotazione"; //Serve a passare l'id da una view all' altra
       final response = await get(Uri.parse(url));
       final jsonData = jsonDecode(response.body) as List;
 
@@ -110,84 +109,58 @@ class OrariViewState extends State<OrariView> {
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Prenotazione Effettuata'),
-        action: SnackBarAction(label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
-
-
+DateTime date = DateTime(2022,07,04);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: MaterialApp(
-          home: Scaffold(
-              backgroundColor: Colors.blue.shade400,
-              body: Stack(
-                children: <Widget>[
-                 Container(
-                   child:  Row(
-                     children: [
-                       GestureDetector(
-                         onTap: () {
-                           print("on prev");
-                         },
-                         child: Container(
-                           height: 20,
-                           width: 100,
-                           decoration: BoxDecoration(
-                               color: Colors.orange
-                           ),
-                           child: Text("Precedente"),
-                         ),
-                       ),
-                       Text("${Giorno.day} - ${Giorno.month} - ${Giorno.year}"),
-                       GestureDetector(
-                         onTap: () {
-                           print("on next");
-                         },
-                         child: Container(
-                           height: 20,
-                           width: 100,
-                           decoration: BoxDecoration(
-                               color: Colors.orange
-                           ),
-                           child: Text("Successivo"),
-                         ),
-                       ),
-                     ],
-                   ),
-                 ),
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: _postsJson.length,
-                    itemBuilder: (context, i) {
-                      final post = _postsJson[i];
-                      return GestureDetector(
-                        onTap: () {
-                          _showToast(context);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.orange,
-                              borderRadius: BorderRadius.circular(100)
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(post.toString()),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              )
+        child: Scaffold(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:  <Widget>[
+          FloatingActionButton(onPressed: (){
+          }, child: Icon(Icons.arrow_back),),
+
+          ElevatedButton(
+              onPressed: (){
+                    () => _selectDate(context);
+              },
+              child: Text("Inserisci data")
           ),
-        )
-    );
+          //child: Text("${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
+
+          FloatingActionButton(onPressed: (){
+
+          }, child: Icon(Icons.arrow_forward),),
+          /*ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: _postsJson.length,
+            itemBuilder: (context, i) {
+              final post = _postsJson[i];
+              return GestureDetector(
+                onTap: () {
+                  _showToast(context);
+                },
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(100)
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(post.toString()),
+                ),
+              );
+            },
+          ),*/
+        ],
+      ),
+    ));
   }
 }
-
-
-
-
