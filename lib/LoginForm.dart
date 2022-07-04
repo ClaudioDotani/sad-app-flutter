@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'globals.dart' as globals;
+import 'Profilo.dart';
 
 //void main() => runApp(const MyApp());
 
@@ -162,13 +165,17 @@ class MyLoginFormState extends State<MyLoginForm> {
         final scaffold = ScaffoldMessenger.of(context);
         scaffold.showSnackBar(
           SnackBar(
-            content: const Text('Credenziali Errate'),
+            content: const Text('Accesso Effettuato'),
             action: SnackBarAction(
                 label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
           ),
         );
       }
-
+      print("utente");
+      print(utente);
+      globals.isLoggedIn = true;
+      globals.idUtente = utente["id"];
+      Navigator.push(context, CupertinoPageRoute(builder: (context) => EditProfilePage(utente: utente)));
       setState(() {});
     } catch (err) {
       print(err);

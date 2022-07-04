@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'settings.dart';
 
-void main() => runApp(SettingsUI());
+//void main() => runApp(SettingsUI());
 
-class SettingsUI extends StatelessWidget {
+/*class SettingsUI extends StatelessWidget {
+
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Setting UI",
-      home: EditProfilePage(),
-    );
-  }
+Widget build(BuildContext context) {
+  return const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: "Setting UI",
+    home: EditProfilePage(),
+  );
 }
+}*/
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({Key? key, required this.utente}) : super(key: key);
+  final utente;
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -113,41 +115,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(
                 height: 35,
               ),
-              buildTextField("Nome", "" , false),
-              buildTextField("E-mail", "", false),
-              buildTextField("Password", "", true),
+              buildTextField("Nome", widget.utente["nome"] , false),
+              buildTextField("E-mail", widget.utente["email"], false),
+              //buildTextField("Password", "", true),
               buildTextField("Paese", "Italy", false),
               const SizedBox(
                 height: 35,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Text("CANCELLA",
-                        style: TextStyle(
-                            fontSize: 14,
-                            letterSpacing: 2.2,
-                            color: Colors.black)),
-                  ),
-                  RaisedButton(
-                    onPressed: () {},
-                    color: Colors.green,
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Text(
-                      "SALVA",
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 2.2,
-                          color: Colors.white),
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         ),

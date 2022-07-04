@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'globals.dart' as globals;
 
 
 //void main() => runApp(const OrariView());
@@ -36,7 +37,9 @@ class OrariViewState extends State<OrariView> {
           "/" +
           Giorno.millisecondsSinceEpoch.toString();
       final response = await get(Uri.parse(url));
-      print(response);
+      print(url);
+      print("orari");
+      print(response.body);
       final jsonData = jsonDecode(response.body) as List;
 
       setState(() {
@@ -68,6 +71,20 @@ class OrariViewState extends State<OrariView> {
   }
 
   void prenota(BuildContext context, int ora) async {
+
+    if (globals.isLoggedIn == false){
+      print("errore non loggato");
+      final scaffold = ScaffoldMessenger.of(context);
+      scaffold.showSnackBar(
+        SnackBar(
+          content: const Text('Devi autenticarti per fare una prenotazione!'),
+          action: SnackBarAction(
+              label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
+        ),
+      );
+      return;
+    }
+
     DateTime dataPartita = new DateTime(
         Giorno.year, Giorno.month, Giorno.day, ora + 2, 0, 0, 0, 0);
 
@@ -76,7 +93,7 @@ class OrariViewState extends State<OrariView> {
       "utenteNonRegistrato": "utente",
       "dataPartita": dataPartita.millisecondsSinceEpoch.toString(),
       "campoDaGioco": int.parse(widget.idCampo),
-      "utente": 1,
+      "utente": globals.idUtente,
       "privata": true
     };
     String bPren = json.encode(pren);
