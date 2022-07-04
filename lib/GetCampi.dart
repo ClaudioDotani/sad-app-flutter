@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -14,20 +15,51 @@ class Campi extends StatefulWidget {
 
 class _CampiState extends State<Campi> {
 
-  String url_base = "https://sad-spring.azurewebsites.net/campicentro/";
+  String url_base = "https://sad-spring.azurewebsites.net/";
 
   var _postsJson = [];
+  var imageArray = [];
 
   void fetchPosts() async {
     try {
-      String url = url_base + widget.idCentro.toString(); //Serve a passare l'id da una view all' altra
+      String url = url_base + "campicentro/" +  widget.idCentro.toString(); //Serve a passare l'id da una view all' altra
       final response = await get(Uri.parse(url));
       final jsonData = jsonDecode(response.body) as List;
-
+      print("campo");
+      print(jsonData);
+      jsonData.forEach((element) async {
+        var imgData = await fetchImage(element["id"]);
+        Uint8List decodedBytes = base64Decode(imgData);
+        imageArray.add(decodedBytes);
+        setState(() {});
+      });
+      print("data");
+      print(jsonData[0]);
       setState(() {
         _postsJson = jsonData;
       });
     } catch (err) {}
+  }
+
+  Future<String> fetchImage(int id) async {
+    try {
+      String url = url_base + "getImageOfCampo/" + id.toString() + "/0";
+      print(url);
+      final response = await get(Uri.parse(url));
+      if(response.statusCode == 200) {
+        String byteImage = response.body;
+        print("byte ");
+        print(byteImage);
+        return byteImage;
+      } else {
+        print(response.statusCode);
+        return "";
+      }
+
+    } catch (err) {
+      print("errore in set state");
+      return "";
+    }
   }
 
   @override
@@ -44,7 +76,7 @@ class _CampiState extends State<Campi> {
     return Scaffold(
       backgroundColor: Colors.blue.shade400,
       body: ListView.builder(
-        itemCount: _postsJson.length,
+        itemCount: imageArray.length,
         itemBuilder: (context, i) {
           final post = _postsJson[i];
           return GestureDetector(
@@ -55,8 +87,9 @@ class _CampiState extends State<Campi> {
               height: 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(60),
-                image: const DecorationImage(
-                    image: AssetImage('assets/images/logo.jpeg')),
+                image: DecorationImage(
+                    image: MemoryImage(imageArray[i])
+                ),
               ),
               alignment: Alignment.bottomCenter,
               child: Text(post["nome"]),
