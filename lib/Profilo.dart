@@ -31,13 +31,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.green,
-          ),
-          onPressed: () {},
-        ),
         actions: [
           IconButton(
             icon: const Icon(
@@ -116,6 +109,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 height: 35,
               ),
               buildTextField("Nome", widget.utente["nome"] , false),
+              buildTextField("Cognome", widget.utente["cognome"] , false),
               buildTextField("E-mail", widget.utente["email"], false),
               //buildTextField("Password", "", true),
               buildTextField("Paese", "Italy", false),

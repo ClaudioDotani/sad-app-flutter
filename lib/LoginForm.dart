@@ -18,19 +18,20 @@ class MyLogin extends StatelessWidget {
 
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(25.0),
-            child: AppBar(
+          appBar: AppBar(
               elevation: 3,
               centerTitle: true,
-              title: const Text(
+              title: Padding(padding: EdgeInsets.only(bottom: 15),
+              child: const Text(
                 'Login',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
+              ),
               ),
             ),
 
+          body: Padding(padding: EdgeInsets.all(30),
+          child: MyLoginForm()
           ),
-          body: MyLoginForm(),
     );
   }
 }
@@ -69,7 +70,7 @@ class MyLoginFormState extends State<MyLoginForm> {
             controller: _textControllerUsername,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Inserisci un nome utente';
+                return 'Inserisci un indirizzo email';
               }
               return null;
             },
@@ -80,7 +81,7 @@ class MyLoginFormState extends State<MyLoginForm> {
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
-                hintText: 'Username'),
+                hintText: 'Indirizzo email'),
           ),
           //A questo punto per far funzionare le cose, dovrei fare un bottone per ogni campo, e chiamarmi un setstate in ogni bottone, ma così fa cagare.
           TextFormField(
@@ -103,38 +104,40 @@ class MyLoginFormState extends State<MyLoginForm> {
                 border: UnderlineInputBorder(), hintText: 'Password'
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  username = _textControllerUsername.text;
-                  password = _textControllerPassword.text;
-                });
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('caricamento dei dati')),
-                  );
-                }
-                login(context);
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(55),
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    username = _textControllerUsername.text;
+                    password = _textControllerPassword.text;
+                  });
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (_formKey.currentState!.validate()) {
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('caricamento dei dati')),
+                    );
+                  }
+                  login(context);
 
-              },
-              child: const Text('Accedi'),
+                },
+                child: const Text('Accedi'),
+              ),
             ),
-          ),
-          ElevatedButton(
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => MyApp()));
-              },
-              child: Text("Registrati")
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => MyApp()));
+                },
+                child: Text("Registrati")
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],)
         ],
       ),
     );

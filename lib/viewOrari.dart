@@ -82,6 +82,7 @@ class OrariViewState extends State<OrariView> {
               label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
         ),
       );
+      fetchPosts();
       return;
     }
 
@@ -143,7 +144,8 @@ class OrariViewState extends State<OrariView> {
             backgroundColor: Colors.blue.shade400,
             body: Stack(
               children: <Widget>[
-                ListView.builder(
+                Padding(padding: EdgeInsets.all(50),
+                child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: _postsJson.length,
@@ -167,10 +169,12 @@ class OrariViewState extends State<OrariView> {
                     );
                   },
                 ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FloatingActionButton(
+                    Padding(padding: EdgeInsets.all(20),
+                    child: FloatingActionButton(
                       heroTag: "btnPrev",
                       onPressed: () {
                         Giorno = new DateTime(
@@ -180,11 +184,15 @@ class OrariViewState extends State<OrariView> {
                       },
                       child: const Icon(Icons.arrow_back),
                     ),
-                    ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                            "${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
-                    FloatingActionButton(
+                    ),
+                   Padding(padding: EdgeInsets.all(20),
+                   child:  ElevatedButton(
+                       onPressed: () {},
+                       child: Text(
+                           "${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
+                   ),
+                    Padding(padding: EdgeInsets.all(20),
+                    child: FloatingActionButton(
                       heroTag: "btnNext",
                       onPressed: () {
                         Giorno = new DateTime(
@@ -193,6 +201,7 @@ class OrariViewState extends State<OrariView> {
                         fetchPosts();
                       },
                       child: const Icon(Icons.arrow_forward),
+                    ),
                     ),
                   ],
                 )

@@ -85,17 +85,23 @@ class _Centri_SportiviState extends State<Centri_Sportivi> {
                 print(_postsJson[i]["id"]);
                Navigator.push(context, CupertinoPageRoute(builder: (context) => Campi(idCentro: _postsJson[i]["id"])));
                },
+              child: Padding(padding: EdgeInsets.all(20),
               child: Container(
-                height: 250,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(60),
-                  image: DecorationImage(
-                      image: MemoryImage(imageArray[i])
+                  height: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(60),
+                    image: DecorationImage(
+                        image: MemoryImage(imageArray[i])
+                    ),
                   ),
-                  ),
-                alignment: Alignment.bottomCenter,
-                child: Text(post["nome"]),
-              ),
+                  alignment: Alignment.bottomCenter,
+                  child: RichText(text: TextSpan(
+                    text: post["nome"],
+                    style: TextStyle(color: Colors.white.withOpacity(1),
+                        fontSize: 40
+                    ),
+                  ),)
+              ),)
             );
           },
         ),

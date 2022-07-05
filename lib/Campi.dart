@@ -83,6 +83,7 @@ class _CampiState extends State<Campi> {
             onTap: () {
               Navigator.push(context,CupertinoPageRoute(builder: (context) => OrariView(idCampo: _postsJson[i]["id"].toString())));
             },
+            child: Padding(padding: EdgeInsets.all(20),
             child: Container(
               height: 250,
               decoration: BoxDecoration(
@@ -92,8 +93,13 @@ class _CampiState extends State<Campi> {
                 ),
               ),
               alignment: Alignment.bottomCenter,
-              child: Text(post["nome"]),
-            ),
+              child: RichText(text: TextSpan(
+                text: post["nome"],
+                style: TextStyle(color: Colors.white.withOpacity(1),
+                    fontSize: 40
+                ),
+              ),),
+            ),)
           );
         },
       ),

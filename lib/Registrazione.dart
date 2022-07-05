@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
         centerTitle: true,
         title: Text('Registrazione'),
       ),
-      body: MyCustomForm(),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: MyCustomForm(),
+      ),
     );
   }
 }
@@ -67,12 +70,13 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 //https://sad-spring.azurewebsites.net/InsertUtente
 
-  void postData() async {
+  void postData(BuildContext context) async {
     Map user = {
       "nome": _textControllerNome.text,
       "cognome": _textControllerCognome.text,
       "email": _textControllerEmail.text,
       "password": _textControllerPassword.text,
+      "dataNascita": Giorno.millisecondsSinceEpoch.toString()
     };
     String bUser = json.encode(user);
     print(bUser);
@@ -88,6 +92,9 @@ class MyCustomFormState extends State<MyCustomForm> {
       print(response.statusCode);
       var utente = json.decode(response.body);
       print(utente.toString());
+      if(response.statusCode < 400){
+        Navigator.pop(context);
+      }
       } catch (err) {
       print(err);
     }
@@ -187,7 +194,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
-              onPressed: postData,
+              onPressed: () => postData(context),
               child: const Text('Conferma'),
             ),
 

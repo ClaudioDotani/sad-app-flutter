@@ -29,12 +29,6 @@ class _Nav_BarState extends State<Nav_Bar> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.search,
-                color: Colors.blue,
-              ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
                 Icons.person,
                 color: Colors.blue,
               ),
@@ -55,7 +49,7 @@ class _Nav_BarState extends State<Nav_Bar> {
                   child: Page3(),
                 );
               });*/
-            case 2:
+            case 1:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
                   child: Page4(),
