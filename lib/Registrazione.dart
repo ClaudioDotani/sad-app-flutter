@@ -93,35 +93,6 @@ class MyCustomFormState extends State<MyCustomForm> {
     }
   }
 
-
-  /*postData() async {
-    print("Inizia la post");
-    try {
-      var response = await http.post(
-        Uri.parse("https://sad-spring.azurewebsites.net/InsertUtente"),
-        headers: {'Content-Type': 'application/json'},
-        body: {
-          "nome": _textControllerNome.text,
-          "cognome": _textControllerCognome.text,
-          "email": _textControllerEmail.text,
-          "password": _textControllerPassword.text,
-        },
-      );
-      print(response.body);
-      if (response.statusCode >= 400) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Errore Registrazione')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Processamnto dei dati')),
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Form(
