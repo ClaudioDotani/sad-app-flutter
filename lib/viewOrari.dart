@@ -37,9 +37,9 @@ class OrariViewState extends State<OrariView> {
           "/" +
           Giorno.millisecondsSinceEpoch.toString();
       final response = await get(Uri.parse(url));
-      print(url);
-      print("orari");
-      print(response.body);
+      //print(url);
+      //print("orari");
+      //print(response.body);
       final jsonData = jsonDecode(response.body) as List;
 
       setState(() {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sad_flutter_app/Registrazione.dart';
 import 'dart:convert';
 import 'globals.dart' as globals;
 import 'Profilo.dart';
@@ -27,6 +28,7 @@ class MyLogin extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
               ),
             ),
+
           ),
           body: MyLoginForm(),
     );
@@ -122,6 +124,16 @@ class MyLoginFormState extends State<MyLoginForm> {
               },
               child: const Text('Accedi'),
             ),
+          ),
+          ElevatedButton(
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => MyApp()));
+              },
+              child: Text("Registrati")
+          ),
+          const SizedBox(
+            height: 20,
           ),
         ],
       ),

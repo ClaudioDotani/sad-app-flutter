@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sad_flutter_app/Centri_Sportivi.dart';
-import 'package:sad_flutter_app/Form.dart';
+import 'package:sad_flutter_app/Registrazione.dart';
 import 'package:sad_flutter_app/Campi.dart';
 import 'package:sad_flutter_app/LoginForm.dart';
 import 'package:sad_flutter_app/main.dart';
@@ -49,12 +49,12 @@ class _Nav_BarState extends State<Nav_Bar> {
                   child: Centri_Sportivi(),
                 );
               });
-            case 1:
+            /*case 1:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
                   child: Page3(),
                 );
-              });
+              });*/
             case 2:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
@@ -94,7 +94,7 @@ class Page1 extends StatelessWidget {
   }
 }*/
 
-class Page3 extends StatelessWidget {
+/*class Page3 extends StatelessWidget {
   const Page3({Key? key}) : super(key: key);
 
   @override
@@ -103,7 +103,7 @@ class Page3 extends StatelessWidget {
       child: MaterialApp(home: MyApp()),
     );
   }
-}
+}*/
 
 class Page4 extends StatelessWidget {
   const Page4({Key? key}) : super(key: key);
