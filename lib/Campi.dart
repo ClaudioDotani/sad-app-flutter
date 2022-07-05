@@ -73,36 +73,47 @@ class _CampiState extends State<Campi> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue.shade400,
-      body: ListView.builder(
-        itemCount: imageArray.length,
-        itemBuilder: (context, i) {
-          final post = _postsJson[i];
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(context,CupertinoPageRoute(builder: (context) => OrariView(idCampo: _postsJson[i]["id"].toString())));
-            },
-            child: Padding(padding: EdgeInsets.all(20),
-            child: Container(
-              height: 250,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(60),
-                image: DecorationImage(
-                    image: MemoryImage(imageArray[i])
+    return SafeArea(
+        child: Scaffold(
+            backgroundColor: Colors.blue.shade400,
+            body: Stack(
+              children: [
+                ListView.builder(
+                  itemCount: imageArray.length,
+                  itemBuilder: (context, i) {
+                    final post = _postsJson[i];
+                    return GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,CupertinoPageRoute(builder: (context) => OrariView(idCampo: _postsJson[i]["id"].toString())));
+                        },
+                        child: Padding(padding: EdgeInsets.all(35),
+                          child: Container(
+                            height: 250,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(60),
+                              image: DecorationImage(
+                                  image: MemoryImage(imageArray[i])
+                              ),
+                            ),
+                            alignment: Alignment.bottomCenter,
+                            child: RichText(text: TextSpan(
+                              text: post["nome"],
+                              style: TextStyle(color: Colors.white.withOpacity(1),
+                                  fontSize: 40
+                              ),
+                            ),),
+                          ),)
+                    );
+                  },
                 ),
-              ),
-              alignment: Alignment.bottomCenter,
-              child: RichText(text: TextSpan(
-                text: post["nome"],
-                style: TextStyle(color: Colors.white.withOpacity(1),
-                    fontSize: 40
-                ),
-              ),),
-            ),)
-          );
-        },
-      ),
+                FloatingActionButton(onPressed: (){
+                  Navigator.pop(context);
+                },
+                  child: Icon(Icons.arrow_back),
+                )
+              ],
+            )
+        ),
     );
   }
 }

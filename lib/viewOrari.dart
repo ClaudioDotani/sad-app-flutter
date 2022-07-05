@@ -91,7 +91,7 @@ class OrariViewState extends State<OrariView> {
 
     Map pren = {
       "durataPrenotazione": 60,
-      "utenteNonRegistrato": "utente",
+      "utenteNonRegistrato": "",
       "dataPartita": dataPartita.millisecondsSinceEpoch.toString(),
       "campoDaGioco": int.parse(widget.idCampo),
       "utente": globals.idUtente,
@@ -144,27 +144,29 @@ class OrariViewState extends State<OrariView> {
             backgroundColor: Colors.blue.shade400,
             body: Stack(
               children: <Widget>[
-                Padding(padding: EdgeInsets.all(50),
+                Padding(padding: EdgeInsets.all(70),
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: _postsJson.length,
                   itemBuilder: (context, i) {
                     final post = _postsJson[i];
-                    return GestureDetector(
-                      onTap: () {
-                        _postsJson.remove(post);
-                        prenota(context, post);
-                        setState(() {});
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(100)),
-                        alignment: Alignment.center,
-                        child: Text(post.toString()),
+                    return Padding(padding: EdgeInsets.all(2.5),
+                      child: GestureDetector(
+                        onTap: () {
+                          _postsJson.remove(post);
+                          prenota(context, post);
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.circular(100)),
+                          alignment: Alignment.center,
+                          child: Text(post.toString()),
+                        ),
                       ),
                     );
                   },
@@ -204,9 +206,22 @@ class OrariViewState extends State<OrariView> {
                     ),
                     ),
                   ],
-                )
+                ),
+                Positioned(
+                  //constraints.biggest.height to get the height
+                  // * .05 to put the position top: 5%
+                  bottom: 30,
+                  left: 10,
+                  child: FloatingActionButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.cancel),
+                  ),
+                ),
               ],
-            )),
+            )
+        ),
         //child: Text("${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
       ),
     );

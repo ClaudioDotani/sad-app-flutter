@@ -89,7 +89,7 @@ class _Centri_SportiviState extends State<Centri_Sportivi> {
               child: Container(
                   height: 250,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(60),
+                    borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                         image: MemoryImage(imageArray[i])
                     ),
