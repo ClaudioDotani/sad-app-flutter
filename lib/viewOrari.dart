@@ -86,7 +86,7 @@ class OrariViewState extends State<OrariView> {
     }
 
     DateTime dataPartita = new DateTime(
-        Giorno.year, Giorno.month, Giorno.day, ora + 2, 0, 0, 0, 0);
+        Giorno.year, Giorno.month, Giorno.day, ora , 0, 0, 0, 0);
 
     Map pren = {
       "durataPrenotazione": 60,
@@ -116,6 +116,7 @@ class OrariViewState extends State<OrariView> {
       setState(() {
         _postsJson = jsonData;
       });
+      fetchPosts();
     } catch (err) {
       print(err);
     }
@@ -153,7 +154,6 @@ class OrariViewState extends State<OrariView> {
                         _postsJson.remove(post);
                         prenota(context, post);
                         setState(() {});
-                        fetchPosts();
                       },
                       child: Container(
                         height: 50,
