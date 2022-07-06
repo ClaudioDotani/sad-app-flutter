@@ -101,12 +101,22 @@ class MyCustomFormState extends State<MyCustomForm> {
       print(response.statusCode);
       var utente = json.decode(response.body);
       print(utente.toString());
-      if(response.statusCode < 400){
+      if(response.statusCode >= 400){
         Navigator.pop(context);
         final scaffold = ScaffoldMessenger.of(context);
         scaffold.showSnackBar(
           SnackBar(
             content: const Text('Errore di inserimento dati'),
+            action: SnackBarAction(
+                label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
+          ),
+        );
+      }else {
+        Navigator.pop(context);
+        final scaffold = ScaffoldMessenger.of(context);
+        scaffold.showSnackBar(
+          SnackBar(
+            content: const Text('Registrazione effettuata con successo'),
             action: SnackBarAction(
                 label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
           ),
