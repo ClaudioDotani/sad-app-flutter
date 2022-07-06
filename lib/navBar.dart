@@ -40,7 +40,7 @@ class _Nav_BarState extends State<Nav_Bar> {
             case 0:
               return CupertinoTabView(builder: (context) {
                 return const CupertinoPageScaffold(
-                  child: Centri_Sportivi(),
+                  child: Page0(),
                 );
               });
             /*case 1:
@@ -63,6 +63,17 @@ class _Nav_BarState extends State<Nav_Bar> {
               });
           }
         });
+  }
+}
+
+class Page0 extends StatelessWidget {
+  const Page0({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  SafeArea(
+      child: Centri_Sportivi(),
+    );
   }
 }
 

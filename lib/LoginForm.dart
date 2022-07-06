@@ -21,20 +21,34 @@ class MyLogin extends StatelessWidget {
           appBar: AppBar(
               elevation: 3,
               centerTitle: true,
-              title: Padding(padding: EdgeInsets.only(bottom: 15),
-              child: const Text(
+              title: const Padding(padding: EdgeInsets.only(bottom: 15),
+              child: Text(
                 'Login',
                 style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
               ),
               ),
             ),
 
-          body: Padding(padding: EdgeInsets.all(30),
-          child: MyLoginForm()
+          body: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage("https://i.postimg.cc/W14z7zWX/luis-eusebio-5-SUt9q8j-Qr-Q-unsplash.jpg"),
+                  fit: BoxFit.cover,
+              ),
+            ),
+            child: MyLoginForm(),
           ),
     );
   }
 }
+
+/*
+body: const Padding(padding: EdgeInsets.all(30),
+            child: MyLoginForm()
+          ),
+*/
 
 // Create a Form widget.
 class MyLoginForm extends StatefulWidget {
@@ -81,7 +95,9 @@ class MyLoginFormState extends State<MyLoginForm> {
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
-                hintText: 'Indirizzo email'),
+                hintText: 'Indirizzo email',
+                hintStyle: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ),
           //A questo punto per far funzionare le cose, dovrei fare un bottone per ogni campo, e chiamarmi un setstate in ogni bottone, ma così fa cagare.
           TextFormField(
@@ -101,7 +117,8 @@ class MyLoginFormState extends State<MyLoginForm> {
                       _textControllerPassword.clear();
                     },
                     icon: Icon(Icons.clear)),
-                border: UnderlineInputBorder(), hintText: 'Password'
+                border: UnderlineInputBorder(), hintText: 'Password',
+              hintStyle: TextStyle(fontSize: 20,color: Colors.white),
             ),
           ),
           Row(children: [

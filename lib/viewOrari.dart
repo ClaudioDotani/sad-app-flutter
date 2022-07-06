@@ -141,7 +141,7 @@ class OrariViewState extends State<OrariView> {
     return SafeArea(
       child: MaterialApp(
         home: Scaffold(
-            backgroundColor: Colors.blue.shade400,
+            //backgroundColor: Colors.blue.shade400,
             body: Stack(
               children: <Widget>[
                 Padding(padding: EdgeInsets.all(70),
@@ -162,8 +162,8 @@ class OrariViewState extends State<OrariView> {
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
-                              color: Colors.orange,
-                              borderRadius: BorderRadius.circular(100)),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
                           alignment: Alignment.center,
                           child: Text(post.toString()),
                         ),
@@ -179,7 +179,7 @@ class OrariViewState extends State<OrariView> {
                     child: FloatingActionButton(
                       heroTag: "btnPrev",
                       onPressed: () {
-                        Giorno = new DateTime(
+                        Giorno = DateTime(
                             Giorno.year, Giorno.month, Giorno.day - 1);
                         setState(() {});
                         fetchPosts();
@@ -197,7 +197,7 @@ class OrariViewState extends State<OrariView> {
                     child: FloatingActionButton(
                       heroTag: "btnNext",
                       onPressed: () {
-                        Giorno = new DateTime(
+                        Giorno = DateTime(
                             Giorno.year, Giorno.month, Giorno.day + 1);
                         setState(() {});
                         fetchPosts();

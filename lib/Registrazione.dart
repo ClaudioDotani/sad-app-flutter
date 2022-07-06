@@ -19,8 +19,15 @@ class MyApp extends StatelessWidget {
         centerTitle: true,
         title: Text('Registrazione'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(32),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage("https://i.postimg.cc/W14z7zWX/luis-eusebio-5-SUt9q8j-Qr-Q-unsplash.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: MyCustomForm(),
       ),
     );
@@ -122,7 +129,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
-                hintText: 'Nome'),
+              hintText: 'Nome',
+              hintStyle: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ),
           //A questo punto per far funzionare le cose, dovrei fare un bottone per ogni campo, e chiamarmi un setstate in ogni bottone, ma così fa cagare.
           TextFormField(
@@ -140,7 +149,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
-                hintText: 'Cognome'),
+                hintText: 'Cognome',
+              hintStyle: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ),
           TextFormField(
             controller: _textControllerEmail,
@@ -157,7 +168,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
-                hintText: 'Email'),
+                hintText: 'Email',
+              hintStyle: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ),
           TextFormField(
             controller: _textControllerPassword,
@@ -177,7 +190,9 @@ class MyCustomFormState extends State<MyCustomForm> {
                     },
                     icon: Icon(Icons.clear)),
                 border: UnderlineInputBorder(),
-                hintText: 'Password'),
+                hintText: 'Password',
+              hintStyle: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ),
           TextFormField(
             controller: _textControllerGiorno,
@@ -189,7 +204,9 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
             decoration: const InputDecoration(
-                border: UnderlineInputBorder(), hintText: 'Data di nascita'),
+                border: UnderlineInputBorder(), hintText: 'Data di nascita',
+              hintStyle: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
