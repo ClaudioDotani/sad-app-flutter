@@ -141,86 +141,98 @@ class OrariViewState extends State<OrariView> {
     return SafeArea(
       child: MaterialApp(
         home: Scaffold(
-            //backgroundColor: Colors.blue.shade400,
-            body: Stack(
-              children: <Widget>[
-                Padding(padding: EdgeInsets.all(70),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: _postsJson.length,
-                  itemBuilder: (context, i) {
-                    final post = _postsJson[i];
-                    return Padding(padding: EdgeInsets.all(2.5),
-                      child: GestureDetector(
-                        onTap: () {
-                          _postsJson.remove(post);
-                          prenota(context, post);
-                          setState(() {});
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          alignment: Alignment.center,
-                          child: Text(post.toString()),
+            backgroundColor: Colors.blue.shade400,
+            body: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(32),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage("https://i.postimg.cc/W14z7zWX/luis-eusebio-5-SUt9q8j-Qr-Q-unsplash.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.all(70),
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: _postsJson.length,
+                      itemBuilder: (context, i) {
+                        final post = _postsJson[i];
+                        return Padding(padding: EdgeInsets.all(2.5),
+                          child: GestureDetector(
+                            onTap: () {
+                              _postsJson.remove(post);
+                              prenota(context, post);
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20)),
+                              alignment: Alignment.center,
+                              child: Text(post.toString()),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(padding: EdgeInsets.all(15),
+                        child: FloatingActionButton(
+                          heroTag: "btnPrev",
+                          onPressed: () {
+                            Giorno = DateTime(
+                                Giorno.year, Giorno.month, Giorno.day - 1);
+                            setState(() {});
+                            fetchPosts();
+                          },
+                          child: const Icon(Icons.arrow_back),
                         ),
                       ),
-                    );
-                  },
-                ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(padding: EdgeInsets.all(20),
-                    child: FloatingActionButton(
-                      heroTag: "btnPrev",
-                      onPressed: () {
-                        Giorno = DateTime(
-                            Giorno.year, Giorno.month, Giorno.day - 1);
-                        setState(() {});
-                        fetchPosts();
-                      },
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                    ),
-                   Padding(padding: EdgeInsets.all(20),
-                   child:  ElevatedButton(
-                       onPressed: () {},
-                       child: Text(
-                           "${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
-                   ),
-                    Padding(padding: EdgeInsets.all(20),
-                    child: FloatingActionButton(
-                      heroTag: "btnNext",
-                      onPressed: () {
-                        Giorno = DateTime(
-                            Giorno.year, Giorno.month, Giorno.day + 1);
-                        setState(() {});
-                        fetchPosts();
-                      },
-                      child: const Icon(Icons.arrow_forward),
-                    ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  //constraints.biggest.height to get the height
-                  // * .05 to put the position top: 5%
-                  bottom: 30,
-                  left: 10,
-                  child: FloatingActionButton(
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                    child: Icon(Icons.cancel),
+                      Padding(padding: EdgeInsets.all(20),
+                        child:  ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                                "${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
+                      ),
+                      Padding(padding: EdgeInsets.all(15),
+                        child: FloatingActionButton(
+                          heroTag: "btnNext",
+                          onPressed: () {
+                            Giorno = DateTime(
+                                Giorno.year, Giorno.month, Giorno.day + 1);
+                            setState(() {});
+                            fetchPosts();
+                          },
+                          child: const Icon(Icons.arrow_forward),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            )
+                  Positioned(
+                    //constraints.biggest.height to get the height
+                    // * .05 to put the position top: 5%
+                    bottom: 30,
+                    left: 10,
+                    child: FloatingActionButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.cancel),
+                    ),
+                  ),
+                ],
+              )
+            ),
+
+
         ),
         //child: Text("${Giorno.day} - ${Giorno.month} - ${Giorno.year}")),
       ),

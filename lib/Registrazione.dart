@@ -16,8 +16,10 @@ class MyApp extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Color(0xFFe7bc80),
         centerTitle: true,
         title: Text('Registrazione'),
+        titleTextStyle: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -101,6 +103,14 @@ class MyCustomFormState extends State<MyCustomForm> {
       print(utente.toString());
       if(response.statusCode < 400){
         Navigator.pop(context);
+        final scaffold = ScaffoldMessenger.of(context);
+        scaffold.showSnackBar(
+          SnackBar(
+            content: const Text('Errore di inserimento dati'),
+            action: SnackBarAction(
+                label: 'Annulla', onPressed: scaffold.hideCurrentSnackBar),
+          ),
+        );
       }
       } catch (err) {
       print(err);

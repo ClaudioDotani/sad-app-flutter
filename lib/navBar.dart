@@ -17,9 +17,9 @@ class _Nav_BarState extends State<Nav_Bar> {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-        backgroundColor: Colors.blue.shade400,
+        //backgroundColor: Colors.blue.shade400,
         tabBar: CupertinoTabBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xFF595b5a),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(
@@ -72,7 +72,7 @@ class Page0 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  SafeArea(
-      child: Centri_Sportivi(),
+     child: Centri_Sportivi(),
     );
   }
 }
@@ -83,7 +83,7 @@ class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Nav_Bar(),
+      child: MaterialApp(home: Centri_Sportivi()),
     );
   }
 }

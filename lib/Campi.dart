@@ -25,16 +25,16 @@ class _CampiState extends State<Campi> {
       String url = url_base + "campicentro/" +  widget.idCentro.toString(); //Serve a passare l'id da una view all' altra
       final response = await get(Uri.parse(url));
       final jsonData = jsonDecode(response.body) as List;
-      print("campo");
-      print(jsonData);
+      //print("campo");
+      //print(jsonData);
       jsonData.forEach((element) async {
         var imgData = await fetchImage(element["id"]);
         Uint8List decodedBytes = base64Decode(imgData);
         imageArray.add(decodedBytes);
         setState(() {});
       });
-      print("data");
-      print(jsonData[0]);
+      //print("data");
+      //print(jsonData[0]);
       setState(() {
         _postsJson = jsonData;
       });
@@ -48,8 +48,8 @@ class _CampiState extends State<Campi> {
       final response = await get(Uri.parse(url));
       if(response.statusCode == 200) {
         String byteImage = response.body;
-        print("byte ");
-        print(byteImage);
+        //print("byte ");
+        //print(byteImage);
         return byteImage;
       } else {
         print(response.statusCode);
@@ -76,43 +76,55 @@ class _CampiState extends State<Campi> {
     return SafeArea(
         child: Scaffold(
             backgroundColor: Colors.blue.shade400,
-            body: Stack(
-              children: [
-                ListView.builder(
-                  itemCount: imageArray.length,
-                  itemBuilder: (context, i) {
-                    final post = _postsJson[i];
-                    return GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,CupertinoPageRoute(builder: (context) => OrariView(idCampo: _postsJson[i]["id"].toString())));
-                        },
-                        child: Padding(padding: EdgeInsets.all(35),
-                          child: Container(
-                            height: 250,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(60),
-                              image: DecorationImage(
-                                  image: MemoryImage(imageArray[i])
-                              ),
-                            ),
-                            alignment: Alignment.bottomCenter,
-                            child: RichText(text: TextSpan(
-                              text: post["nome"],
-                              style: TextStyle(color: Colors.white.withOpacity(1),
-                                  fontSize: 40
-                              ),
-                            ),),
-                          ),)
-                    );
-                  },
+            body: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(32),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage("https://i.postimg.cc/W14z7zWX/luis-eusebio-5-SUt9q8j-Qr-Q-unsplash.jpg"),
+                  fit: BoxFit.cover,
                 ),
-                FloatingActionButton(onPressed: (){
-                  Navigator.pop(context);
-                },
-                  child: Icon(Icons.arrow_back),
-                )
-              ],
-            )
+              ),
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    itemCount: imageArray.length,
+                    itemBuilder: (context, i) {
+                      final post = _postsJson[i];
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,CupertinoPageRoute(builder: (context) => OrariView(idCampo: _postsJson[i]["id"].toString())));
+                          },
+                          child: Padding(padding: EdgeInsets.all(35),
+                            child: Container(
+                              height: 250,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60),
+                                image: DecorationImage(
+                                    image: MemoryImage(imageArray[i])
+                                ),
+                              ),
+                              alignment: Alignment.bottomCenter,
+                              child: RichText(text: TextSpan(
+                                text: post["nome"],
+                                style: TextStyle(color: Colors.white.withOpacity(1),
+                                    fontSize: 40
+                                ),
+                              ),),
+                            ),)
+                      );
+                    },
+                  ),
+                  FloatingActionButton(onPressed: (){
+                    Navigator.pop(context);
+                  },
+                    child: Icon(Icons.arrow_back),
+                  )
+                ],
+              ),
+            ),
+
+
         ),
     );
   }
