@@ -87,7 +87,7 @@ class OrariViewState extends State<OrariView> {
     }
 
     DateTime dataPartita = new DateTime(
-        Giorno.year, Giorno.month, Giorno.day, ora , 0, 0, 0, 0);
+        Giorno.year, Giorno.month, Giorno.day, ora +2, 0, 0, 0, 0);
 
     Map pren = {
       "durataPrenotazione": 60,

@@ -80,6 +80,9 @@ class MyLoginFormState extends State<MyLoginForm> {
               if (value == null || value.isEmpty) {
                 return 'Inserisci un indirizzo email';
               }
+              if(!value.contains("@") || !value.contains(".")){
+                return 'Inserisci un Email valida';
+              }
               return null;
             },
             decoration: InputDecoration(

@@ -68,8 +68,9 @@ class MyCustomFormState extends State<MyCustomForm> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: Giorno,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101));
+        firstDate: DateTime(1971),
+        lastDate: DateTime.now(),
+    );
     if (picked != null && picked != Giorno) {
       setState(() {
         Giorno = picked;
@@ -179,6 +180,9 @@ class MyCustomFormState extends State<MyCustomForm> {
               if (value == null || value.isEmpty) {
                 return 'Inserisci un Email';
               }
+              if(!value.contains("@") || !value.contains(".")){
+                return 'Inserisci un Email valida';
+              }
               return null;
             },
             decoration: InputDecoration(
@@ -231,7 +235,17 @@ class MyCustomFormState extends State<MyCustomForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
-              onPressed: () => postData(context),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // If the form is valid, display a snackbar. In the real world,
+                  // you'd often call a server or save the information in a database.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Registrazione in Corso...')),
+                  );
+                  postData(context);
+                }
+
+              },
               child: const Text('Conferma'),
             ),
 
